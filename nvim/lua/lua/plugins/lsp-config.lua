@@ -49,6 +49,7 @@ return {
 				"gopls",
 				"rust_analyzer",
 				"tailwindcss",
+				"pyright",
 				-- "eslint", -- REMOVED: Commented out to disable ESLint LSP
 				"html",
 				"astro",
@@ -75,27 +76,27 @@ return {
 					})
 				end,
 
-			-- Emmet
-			["emmet_ls"] = function()
-				vim.lsp.config.emmet_ls.setup({
-					capabilities = require("cmp_nvim_lsp").default_capabilities(),
-					filetypes = {
-						"html",
-						"css",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"astro",
-					},
-					cmd = { "emmet-ls", "--stdio" },
-				})
-			end,
+				-- Emmet
+				["emmet_ls"] = function()
+					vim.lsp.config.emmet_ls.setup({
+						capabilities = require("cmp_nvim_lsp").default_capabilities(),
+						filetypes = {
+							"html",
+							"css",
+							"javascript",
+							"typescript",
+							"javascriptreact",
+							"typescriptreact",
+							"astro",
+						},
+						cmd = { "emmet-ls", "--stdio" },
+					})
+				end,
 
-			-- ESLint - EXPLICITLY DISABLED to avoid pnpm/Next.js config errors
-			["eslint"] = function()
-				-- Do nothing - explicitly prevent ESLint from loading
-			end,
+				-- ESLint - EXPLICITLY DISABLED to avoid pnpm/Next.js config errors
+				["eslint"] = function()
+					-- Do nothing - explicitly prevent ESLint from loading
+				end,
 			},
 		},
 	},
