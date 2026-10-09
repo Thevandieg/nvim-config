@@ -56,6 +56,7 @@ return {
 				"yamlls",
 				"ts_ls", -- modern replacement for tsserver
 				"gopls",
+				"basedpyright", -- Python (hover docs, go-to-definition, types)
 				"rust_analyzer",
 				"tailwindcss",
 				-- "eslint", -- REMOVED: Commented out to disable ESLint LSP
