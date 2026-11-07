@@ -108,6 +108,26 @@ return {
 			end,
 			},
 		},
+		config = function(_, opts)
+			require("mason-lspconfig").setup(opts)
+
+			-- Astro needs a TypeScript SDK with tsserverlibrary.js (TS <= 6.x); the TS 7
+			-- bundled with Mason's astro-language-server lacks it. Prefer the project's
+			-- own TS, fall back to the TS 6 bundled with Mason's ts_ls.
+			-- Must run after mason-lspconfig, which registers its own astro before_init.
+			vim.lsp.config("astro", {
+				before_init = function(_, config)
+					local tsdk = require("lspconfig.util").get_typescript_server_path(config.root_dir)
+					if tsdk == "" or vim.fn.filereadable(tsdk .. "/tsserverlibrary.js") == 0 then
+						tsdk = vim.fn.stdpath("data")
+							.. "/mason/packages/typescript-language-server/node_modules/typescript/lib"
+					end
+					config.init_options = config.init_options or {}
+					config.init_options.typescript = config.init_options.typescript or {}
+					config.init_options.typescript.tsdk = tsdk
+				end,
+			})
+		end,
 	},
 
 	-- None-ls (formatting only)
